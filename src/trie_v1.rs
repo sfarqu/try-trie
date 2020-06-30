@@ -38,6 +38,7 @@ impl Trie {
     }
 
     /** Returns boolean of whether the word is in the trie. */
+    // would rather not pass self as mutable but using self as root node requires it
     pub fn search(&mut self, word: &str) -> bool {
         let mut node = self;
         for c in word.chars() {

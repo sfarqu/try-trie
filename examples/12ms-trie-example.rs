@@ -4,13 +4,13 @@
 
 #[derive(Debug)]
 struct Trie {
-    root: Box<Node>,
+    root: Box<Node>, // root is pointer to Node object on heap, prevents mutable self prob in my version
 }
 
 #[derive(Debug, Default)]
 struct Node {
     /// A pointer to each child node, one for each lowercase character
-    children: Vec<Option<Box<Node>>>,
+    children: Vec<Option<Box<Node>>>, // use vector instead of dictionary, keys are char codes
     
     /// This is a terminal node
     terminal: bool,
@@ -21,8 +21,8 @@ impl Node {
         let mut children = Vec::new();
         children.reserve(26);
         
-        for _ in 0..26 {
-            children.push(None);
+        for _ in 0..26 { // does this init 27 values? NO - range is exclusive of last number
+            children.push(None); // initialize all values to None--what is default Vec init value?
         }
         
         Node {
@@ -65,7 +65,7 @@ impl Trie {
         let mut curr_node = &self.root;
         
         for c in word.chars() {
-            let i = (c as usize - 97);
+            let i = (c as usize - 97); // cheater way of getting 0-26, only works lc ASCII
 
             if curr_node.children[i].is_none() {
                 // We did not find this character in the trie
@@ -76,7 +76,7 @@ impl Trie {
         }
         
         // Return "found" if and only if this is a terminal node in the trie
-        !full || curr_node.terminal
+        !full || curr_node.terminal // this !full is hard for me to logic around, is this good practice?
     }
     
     /** Returns if the word is in the trie. */
@@ -98,6 +98,7 @@ impl Trie {
  * let ret_3: bool = obj.starts_with(prefix);
  */
 
+// This is only here to make the compiler happy, this code never runs
 fn main() {
     println!("Hello, world!");
 }
