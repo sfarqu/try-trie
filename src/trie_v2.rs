@@ -1,7 +1,7 @@
 use std::collections::hash_map::{HashMap};
 use heapsize::HeapSizeOf;
 
-struct Trie {
+pub struct Trie {
     links: HashMap<char, Trie>,
     is_end: bool
 }
@@ -9,20 +9,19 @@ struct Trie {
 /** Figure out heap size of data structure */
 impl HeapSizeOf for Trie {
     fn heap_size_of_children(&self) -> usize {
-        self.links.heap_size_of_children() +
-            self.is_end.heap_size_of_children()
+        self.links.heap_size_of_children()
     }
 }
 
 impl Trie {
 
     /** Initialize data structure. */
-    fn new() -> Self {
+    pub fn new() -> Self {
         Trie { links: HashMap::new(), is_end: false }
     }
 
     /** Inserts a word into the trie. */
-    fn insert(&mut self, word: &str) {
+    pub fn insert(&mut self, word: &str) {
         let mut node = self;
         for c in word.chars() {
             node = node.links.entry(c).or_insert(Trie::new());
@@ -31,7 +30,7 @@ impl Trie {
     }
 
     /** Returns if the word is in the trie. */
-    fn search(&mut self, word: &str) -> bool {
+    pub fn search(&mut self, word: &str) -> bool {
         let mut node = self;
         for c in word.chars() {
             match node.links.get_mut(&c) {
@@ -45,7 +44,7 @@ impl Trie {
     }
 
     /** Returns if there is any word in the trie that starts with the given prefix. */
-    fn starts_with(&mut self, prefix: &str) -> bool {
+    pub fn starts_with(&mut self, prefix: &str) -> bool {
         let mut node = self;
         for c in prefix.chars() {
             match node.links.get_mut(&c) {
