@@ -2,9 +2,18 @@
 * Example code with a faster runtime on leetcode
 **/
 
+use heapsize::HeapSizeOf;
+
 #[derive(Debug)]
 struct Trie {
     root: Box<Node>, // root is pointer to Node object on heap, prevents mutable self prob in my version
+}
+
+/** Figure out heap size of data structure */
+impl HeapSizeOf for Trie {
+    fn heap_size_of_children(&self) -> usize {
+        self.root.heap_size_of_children()
+    }
 }
 
 #[derive(Debug, Default)]
@@ -14,6 +23,13 @@ struct Node {
     
     /// This is a terminal node
     terminal: bool,
+}
+
+/** Figure out heap size of data structure */
+impl HeapSizeOf for Node {
+    fn heap_size_of_children(&self) -> usize {
+        self.children.heap_size_of_children()
+    }
 }
 
 impl Node {
@@ -100,5 +116,14 @@ impl Trie {
 
 // This is only here to make the compiler happy, this code never runs
 fn main() {
-    println!("Hello, world!");
+    let mut obj1 = Trie::new();
+    obj1.insert("test".to_string());
+    // obj1.insert("tes");
+    // obj1.insert("testy");
+    //println!("Heap size: {}", obj1.heap_size_of_children());
+
+    /** heapsize uses _je_malloc_usable_size for Box<T> impl, which doesn't work on x86_64
+    * In Servo was replaced by MallocSizeOf trait (my first attempt was right!) so try
+    * finding a public crate of that. See https://github.com/servo/heapsize/issues/80
+    */
 }
