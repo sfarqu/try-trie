@@ -122,8 +122,8 @@ fn main() {
     // obj1.insert("testy");
     //println!("Heap size: {}", obj1.heap_size_of_children());
 
-    /** heapsize uses _je_malloc_usable_size for Box<T> impl, which doesn't work on x86_64
-    * In Servo was replaced by MallocSizeOf trait (my first attempt was right!) so try
-    * finding a public crate of that. See https://github.com/servo/heapsize/issues/80
-    */
+    // heapsize uses _je_malloc_usable_size for Box<T> impl, which doesn't work on x86_64
+    // In Servo was replaced by MallocSizeOf trait (my first attempt was right!) so try
+    // finding a public crate of that. See https://github.com/servo/heapsize/issues/80
+    //
 }
