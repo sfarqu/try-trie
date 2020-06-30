@@ -1,0 +1,1 @@
+This is a toy project to test the performance of various implementations of a trie—a cool but very nearly useless data structure.
