@@ -6,6 +6,7 @@ struct Trie {
     is_end: bool
 }
 
+/** Figure out heap size of data structure */
 impl HeapSizeOf for Trie {
     fn heap_size_of_children(&self) -> usize {
         self.links.heap_size_of_children() +

@@ -4,13 +4,14 @@ use heapsize::HeapSizeOf;
 pub struct Trie {
     links: HashMap<char, Trie>,
     is_end: bool,
-    is_empty: bool
+    is_empty: bool // Whoops I sort of manually re-implemented the concept of optionals?
 }
 
 impl Default for Trie {
     fn default() -> Self { Trie { links: HashMap::new(), is_end: false, is_empty: true } }
 }
 
+/** Figure out heap size of data structure */
 impl HeapSizeOf for Trie {
     fn heap_size_of_children(&self) -> usize {
         self.links.heap_size_of_children() +
@@ -36,7 +37,7 @@ impl Trie {
         node.is_end = true
     }
 
-    /** Returns if the word is in the trie. */
+    /** Returns boolean of whether the word is in the trie. */
     pub fn search(&mut self, word: &str) -> bool {
         let mut node = self;
         for c in word.chars() {
@@ -48,7 +49,7 @@ impl Trie {
         node.is_end
     }
 
-    /** Returns if there is any word in the trie that starts with the given prefix. */
+    /** Returns boolean of whether there is any word in the trie that starts with the given prefix. */
     pub fn starts_with(&mut self, prefix: &str) -> bool {
         let mut node = self;
         for c in prefix.chars() {
@@ -61,7 +62,7 @@ impl Trie {
     }
 }
 
-#[cfg(test)]
+#[cfg(test)] // TODO: look up what this annotation means
 mod tests {
     use super::*;
 
