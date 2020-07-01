@@ -1,3 +1,7 @@
+/**
+* Second attempt at implementing trie in Rust: use optional properly
+* Now with additional heap size measurements
+**/
 use std::collections::hash_map::{HashMap};
 use heapsize::HeapSizeOf;
 
@@ -29,7 +33,7 @@ impl Trie {
         node.is_end = true
     }
 
-    /** Returns if the word is in the trie. */
+    /** Returns whether word is in the trie. */
     pub fn search(&mut self, word: &str) -> bool {
         let mut node = self;
         for c in word.chars() {
@@ -43,7 +47,7 @@ impl Trie {
         node.is_end
     }
 
-    /** Returns if there is any word in the trie that starts with the given prefix. */
+    /** Returns whether any word in the trie starts with the given prefix. */
     pub fn starts_with(&mut self, prefix: &str) -> bool {
         let mut node = self;
         for c in prefix.chars() {

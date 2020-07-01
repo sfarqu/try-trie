@@ -1,3 +1,7 @@
+/**
+* First attempt at implementing trie in Rust
+* Now with added heap size measurements
+**/
 use std::collections::hash_map::{HashMap};
 use heapsize::HeapSizeOf;
 
@@ -37,7 +41,7 @@ impl Trie {
         node.is_end = true
     }
 
-    /** Returns boolean of whether the word is in the trie. */
+    /** Returns whether word is in the trie. */
     // would rather not pass self as mutable but using self as root node requires it
     pub fn search(&mut self, word: &str) -> bool {
         let mut node = self;
@@ -50,7 +54,7 @@ impl Trie {
         node.is_end
     }
 
-    /** Returns boolean of whether there is any word in the trie that starts with the given prefix. */
+    /** Returns whether any word in the trie starts with the given prefix. */
     pub fn starts_with(&mut self, prefix: &str) -> bool {
         let mut node = self;
         for c in prefix.chars() {
