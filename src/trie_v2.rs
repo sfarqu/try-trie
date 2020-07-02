@@ -1,13 +1,13 @@
+use heapsize::HeapSizeOf;
 /**
 * Second attempt at implementing trie in Rust: use optional properly
 * Now with additional heap size measurements
 **/
-use std::collections::hash_map::{HashMap};
-use heapsize::HeapSizeOf;
+use std::collections::hash_map::HashMap;
 
 pub struct Trie {
     links: HashMap<char, Trie>,
-    is_end: bool
+    is_end: bool,
 }
 
 /** Figure out heap size of data structure */
@@ -18,10 +18,12 @@ impl HeapSizeOf for Trie {
 }
 
 impl Trie {
-
     /** Initialize data structure. */
     pub fn new() -> Self {
-        Trie { links: HashMap::new(), is_end: false }
+        Trie {
+            links: HashMap::new(),
+            is_end: false,
+        }
     }
 
     /** Inserts a word into the trie. */
@@ -39,9 +41,7 @@ impl Trie {
         for c in word.chars() {
             match node.links.get_mut(&c) {
                 None => return false,
-                Some(n) => {
-                    node = n
-                }
+                Some(n) => node = n,
             }
         }
         node.is_end
@@ -53,9 +53,7 @@ impl Trie {
         for c in prefix.chars() {
             match node.links.get_mut(&c) {
                 None => return false,
-                Some(n) => {
-                    node = n
-                }
+                Some(n) => node = n,
             }
         }
         true

@@ -1,34 +1,43 @@
+use heapsize::HeapSizeOf;
 /**
 * First attempt at implementing trie in Rust
 * Now with added heap size measurements
 **/
-use std::collections::hash_map::{HashMap};
-use heapsize::HeapSizeOf;
+use std::collections::hash_map::HashMap;
 
 pub struct Trie {
     links: HashMap<char, Trie>,
     is_end: bool,
-    is_empty: bool // Whoops I sort of manually re-implemented the concept of optionals?
+    is_empty: bool, // Whoops I sort of manually re-implemented the concept of optionals?
 }
 
 impl Default for Trie {
-    fn default() -> Self { Trie { links: HashMap::new(), is_end: false, is_empty: true } }
+    fn default() -> Self {
+        Trie {
+            links: HashMap::new(),
+            is_end: false,
+            is_empty: true,
+        }
+    }
 }
 
 /** Figure out heap size of data structure */
 impl HeapSizeOf for Trie {
     fn heap_size_of_children(&self) -> usize {
-        self.links.heap_size_of_children() +
-            self.is_end.heap_size_of_children() +
-            self.is_empty.heap_size_of_children()
+        self.links.heap_size_of_children()
+            + self.is_end.heap_size_of_children()
+            + self.is_empty.heap_size_of_children()
     }
 }
 
 impl Trie {
-
     /** Initialize data structure. */
     pub fn new() -> Self {
-        Trie { links: HashMap::new(), is_end: false, is_empty: false }
+        Trie {
+            links: HashMap::new(),
+            is_end: false,
+            is_empty: false,
+        }
     }
 
     /** Inserts a word into the trie. */
@@ -48,7 +57,7 @@ impl Trie {
         for c in word.chars() {
             node = node.links.entry(c).or_default();
             if node.is_empty {
-                return false
+                return false;
             }
         }
         node.is_end
@@ -60,7 +69,7 @@ impl Trie {
         for c in prefix.chars() {
             node = node.links.entry(c).or_default();
             if node.is_empty {
-                return false
+                return false;
             }
         }
         true
