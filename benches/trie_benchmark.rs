@@ -2,7 +2,7 @@ use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use try_trie;
 
 pub fn criterion_benchmark(c: &mut Criterion) {
-    c.bench_function("tries", |b| b.iter(|| try_trie::compare_tries()));
+    c.bench_function("tries", |b| b.iter(|| try_trie::trie1()));
 }
 
 criterion_group!(benches, criterion_benchmark);
