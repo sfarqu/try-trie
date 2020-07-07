@@ -12,6 +12,10 @@ pub fn trie1() {
     obj.insert("best");
     obj.insert("tes");
     obj.insert("testy");
+    obj.search("test");
+    obj.search("tes");
+    obj.starts_with("tes");
+    obj.starts_with("to");
     println!("Heap size: {}", obj.heap_size_of_children());
 }
 
@@ -24,6 +28,10 @@ pub fn trie2() {
     obj.insert("best");
     obj.insert("tes");
     obj.insert("testy");
+    obj.search("test");
+    obj.search("tes");
+    obj.starts_with("tes");
+    obj.starts_with("to");
     println!("Heap size: {}", obj.heap_size_of_children());
 }
 
